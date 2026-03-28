@@ -4,6 +4,10 @@ using System.IO;
 
 class Program
 {
+    static int GetLevel(int score)
+{
+    return score / 1000 + 1;
+}
     static void Main(string[] args)
     {
         List<Goal> goals = new List<Goal>();
@@ -11,7 +15,8 @@ class Program
 
         while (true)
         {
-            Console.WriteLine($"\nYou have {score} points.");
+            int level = GetLevel(score);
+            Console.WriteLine($"\nYou have {score} points (Level {level}).");
             Console.WriteLine("Menu Options:");
             Console.WriteLine("1. Create New Goal");
             Console.WriteLine("2. List Goals");
@@ -51,10 +56,10 @@ class Program
                 }
                 else if (type == "3")
                 {
-                    Console.Write("Target count: ");
+                    Console.Write("How many times does this goal need to be accomplished for a bonus? ");
                     int target = int.Parse(Console.ReadLine());
 
-                    Console.Write("Bonus: ");
+                    Console.Write("What is the bonus for accomplishing it that many times? ");
                     int bonus = int.Parse(Console.ReadLine());
 
                     goals.Add(new ChecklistGoal(name, desc, points, target, bonus));
@@ -65,14 +70,15 @@ class Program
             {
                 int i = 1;
                 foreach (Goal g in goals)
-                {
+                {   
+                    Console.WriteLine("The goals are:");
                     Console.WriteLine($"{i}. {g.GetDetails()}");
                     i++;
                 }
             }
             else if (choice == "3")
             {
-                Console.Write("Filename: ");
+                Console.Write("What is the filename for the goal file? ");
                 string file = Console.ReadLine();
 
                 goals.Clear();
@@ -97,7 +103,7 @@ class Program
 
             else if (choice == "4")
             {
-                Console.Write("Filename: ");
+                Console.Write("What is the filename for the goal file? ");
                 string file = Console.ReadLine();
 
                 using (StreamWriter writer = new StreamWriter(file))
@@ -112,14 +118,23 @@ class Program
 
             else if (choice == "5")
             {
-                Console.WriteLine("Select goal:");
+                Console.WriteLine("What goal did you accomplish?");
                 for (int i = 0; i < goals.Count; i++)
                 {
                     Console.WriteLine($"{i + 1}. {goals[i].GetName()}");
                 }
 
                 int index = int.Parse(Console.ReadLine()) - 1;
+                int oldLevel = GetLevel(score);
+
                 score += goals[index].RecordEvent();
+
+                int newLevel = GetLevel(score);
+
+                if (newLevel > oldLevel)
+                {
+                    Console.WriteLine($"\n🎉 LEVEL UP! You are now Level {newLevel}!");
+                }
             }
 
             else if (choice == "6")
