@@ -4,6 +4,11 @@ class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Hello FinalProject World!");
+        ActivityManager manager = new ActivityManager();
+
+        manager.CreateSampleActivities();
+        manager.DisplayActivities();
+
+        Console.WriteLine("Program ran successfully.");
     }
 }
