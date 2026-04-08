@@ -1,5 +1,3 @@
-using System;
-
 public class Activity
 {
     protected string _date;
@@ -11,23 +9,18 @@ public class Activity
         _minutes = minutes;
     }
 
-    public virtual double GetDistance()
-    {
-        return 0;
-    }
-
-    public virtual double GetSpeed()
-    {
-        return 0;
-    }
-
-    public virtual double GetCalories()
-    {
-        return 0;
-    }
+    public virtual double GetDistance() { return 0; }
+    public virtual double GetSpeed() { return 0; }
+    public virtual double GetCalories() { return 0; }
 
     public virtual string GetSummary()
     {
-        return $"Date: {_date}, Minutes: {_minutes}";
+        return $"{_date} {_minutes} min";
+    }
+
+    // Used for saving to file
+    public virtual string ToFileString()
+    {
+        return "";
     }
 }

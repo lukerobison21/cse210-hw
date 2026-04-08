@@ -8,10 +8,7 @@ public class Running : Activity
         _distance = distance;
     }
 
-    public override double GetDistance()
-    {
-        return _distance;
-    }
+    public override double GetDistance() => _distance;
 
     public override double GetSpeed()
     {
@@ -21,5 +18,15 @@ public class Running : Activity
     public override double GetCalories()
     {
         return _minutes * 10;
+    }
+
+    public override string GetSummary()
+    {
+        return $"Running | {_date} | {_minutes} min | {_distance} miles";
+    }
+
+    public override string ToFileString()
+    {
+        return $"Running,{_date},{_minutes},{_distance}";
     }
 }

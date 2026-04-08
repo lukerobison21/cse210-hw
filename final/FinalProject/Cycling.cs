@@ -13,13 +13,20 @@ public class Cycling : Activity
         return (_speed * _minutes) / 60;
     }
 
-    public override double GetSpeed()
-    {
-        return _speed;
-    }
+    public override double GetSpeed() => _speed;
 
     public override double GetCalories()
     {
         return _minutes * 8;
+    }
+
+    public override string GetSummary()
+    {
+        return $"Cycling | {_date} | {_minutes} min | {_speed} mph";
+    }
+
+    public override string ToFileString()
+    {
+        return $"Cycling,{_date},{_minutes},{_speed}";
     }
 }

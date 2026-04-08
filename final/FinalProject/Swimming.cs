@@ -15,12 +15,21 @@ public class Swimming : Activity
 
     public override double GetSpeed()
     {
-        double distance = GetDistance();
-        return (distance / _minutes) * 60;
+        return (GetDistance() / _minutes) * 60;
     }
 
     public override double GetCalories()
     {
         return _minutes * 11;
+    }
+
+    public override string GetSummary()
+    {
+        return $"Swimming | {_date} | {_minutes} min | {_laps} laps";
+    }
+
+    public override string ToFileString()
+    {
+        return $"Swimming,{_date},{_minutes},{_laps}";
     }
 }
